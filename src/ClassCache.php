@@ -58,6 +58,8 @@ class ClassCache
             $ref = new ReflectionClass($class);
             $files[] = $ref->getFileName();
         }
+
+        return $files;
     }
 
     /**
