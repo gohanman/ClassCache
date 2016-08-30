@@ -18,10 +18,10 @@ class ClassCacheTest extends PHPUnit_Framework_TestCase
         $file = file_get_contents($out);
         unlink($out);
 
-        $this->assertEquals(true, strstr($out, "namespace {"));
-        $this->assertEquals(true, strstr($out, "namespace testing {"));
-        $this->assertEquals(true, strstr($out, "class GlobalTest"));
-        $this->assertEquals(true, strstr($out, "class NameSpaceTest"));
+        $this->assertNotEquals(false, strstr($file, "namespace {"));
+        $this->assertNotEquals(false, strstr($file, "namespace testing {"));
+        $this->assertNotEquals(false, strstr($file, "class GlobalTest"));
+        $this->assertNotEquals(false, strstr($file, "class NameSpaceTest"));
     }
 }
 
