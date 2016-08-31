@@ -119,7 +119,7 @@ class ClassCache
         for ($i=0; $i<count($tokens); $i++) {
             if (is_array($tokens[$i]) && $tokens[$i][0] == T_NAMESPACE) {
                 $j = $i+1;
-                while (is_array($tokens[$j]) && ($tokens[$j][0] == T_WHITESPACE || $tokens[$j][0] == T_STRING)) {
+                while (is_array($tokens[$j]) && ($tokens[$j][0] == T_WHITESPACE || $tokens[$j][0] == T_STRING || $tokens[$j][0] == T_NS_SEPARATOR)) {
                     $j++;
                 }
                 if ($tokens[$j] == ';') {

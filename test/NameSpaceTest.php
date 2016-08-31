@@ -1,6 +1,6 @@
 <?php
 
-namespace testing;
+namespace testing\with\levels;
 
 class NameSpaceTest
 {
