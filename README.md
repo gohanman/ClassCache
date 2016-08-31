@@ -1,5 +1,5 @@
 # ClassCache
-PHP class definition caching
+Concatenates several class definitions into a single file for quick loading.
 
 # Usage
 ```php
