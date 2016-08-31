@@ -11,6 +11,20 @@ class ClassCache
     const UNKNOWN_NS = -1;
 
     /**
+      Helper method to get a cachefile name
+      @param $basename [string] file basename [default: class.cache.php]
+      @return [string] full path to cachefile
+    */
+    public function getFile($basename='class.cache.php')
+    {
+        if (substr($basename, -4) !== '.php') {
+            $basename .= '.php';
+        }
+
+        return sys_get_temp_dir . DIRECTORY_SEPARATOR . $basename;
+    }
+
+    /**
       Get definitions for several classes and write them out to
       a single file
       @param $classes [array] of class names or instantiated objects
@@ -35,6 +49,8 @@ class ClassCache
 
     /**
       Strip PHP tags and use brackets for namespacing
+      @param $def [string] PHP code defining the class
+      @return $def [string] PHP code rewritten for concatenation
     */
     private function rewriteDefinition($def)
     {
@@ -60,6 +76,8 @@ class ClassCache
 
     /**
       Get files defining classes from class names
+      @param $classes [array] class names
+      @return [array] files defining classes
     */
     private function filesFromNames($classes)
     {
@@ -72,6 +90,11 @@ class ClassCache
         return $files;
     }
 
+    /**
+      Counts namespace tokens
+      @param [array] PHP tokens from token_get_all
+      @return [int] number of namespace tokens
+    */
     private function countNamespaces($tokens)
     {
         $count = 0;
@@ -84,6 +107,13 @@ class ClassCache
         return $count;
     }
 
+    /**
+      Determine what style of namespace statement is used
+      Options are semi-colon terminated, curly brace terminated,
+      and unknown
+      @param [array] PHP tokens from token_get_all
+      @return [int] constant
+    */
     private function typeOfNamespace($tokens)
     {
         for ($i=0; $i<count($tokens); $i++) {
@@ -106,6 +136,8 @@ class ClassCache
 
     /**
       Filter out duplicate class names
+      @param $names [array] class names
+      @return [array] of class names
     */
     private function dedupeNames($names)
     {
